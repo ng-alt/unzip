@@ -3,6 +3,8 @@
 # Version:  6.0                                                     18 Jan 2009
 #==============================================================================
 
+include config.mk
+include config.in
 
 # INSTRUCTIONS (such as they are):
 #
@@ -42,15 +44,15 @@
 # such as -DDOSWILD).
 
 # UnZip flags
-CC = cc#	try using "gcc" target rather than changing this (CC and LD
+#CC = cc#	try using "gcc" target rather than changing this (CC and LD
 LD = $(CC)#	must match, else "unresolved symbol:  ___main" is possible)
-AS = as
+##AS = as
 LOC = $(D_USE_BZ2) $(LOCAL_UNZIP)
 AF = $(LOC)
 CFLAGS = -O
 CF_NOOPT = -I. -I$(IZ_BZIP2) -DUNIX $(LOC)
 CF = $(CFLAGS) $(CF_NOOPT)
-LFLAGS1 =
+#LFLAGS1 =
 LF = -o unzip$E $(LFLAGS1)
 LF2 = -s
 
@@ -121,8 +123,8 @@ INSTALL_PROGRAM = $(INSTALL)
 INSTALL_D = mkdir -p
 # on some systems, manext=l and MANDIR=/usr/man/man$(manext) may be appropriate
 manext = 1
-prefix = /usr/local
-BINDIR = $(prefix)/bin#			where to install executables
+prefix = $(TARGETDIR)/usr/sbin
+BINDIR = $(prefix)#			where to install executables
 MANDIR = $(prefix)/man/man$(manext)#	where to install man pages
 INSTALLEDBIN = $(BINDIR)/funzip$E $(BINDIR)/unzip$E $(BINDIR)/unzipsfx$E \
 	$(BINDIR)/zipgrep$E $(BINDIR)/zipinfo$E
@@ -453,14 +455,14 @@ install:	$(MANS)
 	$(INSTALL) unix/zipgrep $(BINDIR)
 	$(RM) $(BINDIR)/zipinfo$E
 	$(LN) $(BINDIR)/unzip$E $(BINDIR)/zipinfo$E
-	-$(INSTALL_D) $(MANDIR)
-	$(INSTALL) man/funzip.1 $(MANDIR)/funzip.$(manext)
-	$(INSTALL) man/unzip.1 $(MANDIR)/unzip.$(manext)
-	$(INSTALL) man/unzipsfx.1 $(MANDIR)/unzipsfx.$(manext)
-	$(INSTALL) man/zipgrep.1 $(MANDIR)/zipgrep.$(manext)
-	$(INSTALL) man/zipinfo.1 $(MANDIR)/zipinfo.$(manext)
+	#-$(INSTALL_D) $(MANDIR)
+	#$(INSTALL) man/funzip.1 $(MANDIR)/funzip.$(manext)
+	#$(INSTALL) man/unzip.1 $(MANDIR)/unzip.$(manext)
+	#$(INSTALL) man/unzipsfx.1 $(MANDIR)/unzipsfx.$(manext)
+	#$(INSTALL) man/zipgrep.1 $(MANDIR)/zipgrep.$(manext)
+	#$(INSTALL) man/zipinfo.1 $(MANDIR)/zipinfo.$(manext)
 	$(CHMOD) $(BINPERMS) $(INSTALLEDBIN)
-	$(CHMOD) $(MANPERMS) $(INSTALLEDMAN)
+	#$(CHMOD) $(MANPERMS) $(INSTALLEDMAN)
 
 uninstall:
 	$(RM) $(INSTALLEDBIN) $(INSTALLEDMAN)
