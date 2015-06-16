@@ -2,10 +2,10 @@
 # Makefile for UnZip, UnZipSFX and fUnZip:  Unix and MS-DOS ("real" makes only)
 # Version:  6.0                                                     18 Jan 2009
 #==============================================================================
-
+ifneq ($(CONFIG_XDSL_PRODUCT),y)
 include config.mk
 include config.in
-
+endif
 # INSTRUCTIONS (such as they are):
 #
 # "make sunos"	-- makes UnZip in current directory on a generic SunOS 4.x Sun
@@ -123,7 +123,11 @@ INSTALL_PROGRAM = $(INSTALL)
 INSTALL_D = mkdir -p
 # on some systems, manext=l and MANDIR=/usr/man/man$(manext) may be appropriate
 manext = 1
+ifeq ($(CONFIG_XDSL_PRODUCT),y)
+prefix = $(INSTALL_DIR)/usr/sbin
+else
 prefix = $(TARGETDIR)/usr/sbin
+endif
 BINDIR = $(prefix)#			where to install executables
 MANDIR = $(prefix)/man/man$(manext)#	where to install man pages
 INSTALLEDBIN = $(BINDIR)/funzip$E $(BINDIR)/unzip$E $(BINDIR)/unzipsfx$E \
